@@ -44,8 +44,9 @@ minimal_space=3
 graphical_space=5
 required_space=$minimal_space
 digitalocean=false
+confirm=true
 
-while getopts ":g:r:t:Gdw:h" opt; do
+while getopts ":g:r:t:Gdw:hy" opt; do
   case $opt in
     g)
       grub_device=$OPTARG
@@ -65,6 +66,9 @@ while getopts ":g:r:t:Gdw:h" opt; do
       ;;
     w)
       working_directory=$OPTARG
+      ;;
+    y)
+      confirm=false
       ;;
     h)
       show_help "$0"
@@ -107,8 +111,12 @@ log "   Root => $root_mount ($root_type)"
 log "   ISO => $iso"
 log "   Digital Ocean => $digitalocean"
 log "   Working directory => $working_directory"
-log_start "Continue? [yn] "
-read -n 1 -r
+if [ "$confirm" = "true" ]; then
+  log_start "Continue? [yn] "
+  read -n 1 -r
+else
+  REPLY=Y
+fi
 log_end
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
