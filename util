@@ -26,6 +26,7 @@ show_help()
   log "  -G         Use the graphical NixOS ISO (default: ${iso:-undefined})"
   log "  -d         Prepare for use with Digital Ocean (default: ${digitalocean:-undefined})"
   log "  -w <dir>   Specify the working directory (default: random in /tmp)"
+  log "  -y         Automated install, skipping confirmation"
   exit 1
 }
 
